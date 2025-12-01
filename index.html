@@ -1072,12 +1072,12 @@
                                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-brand-500/20 via-brand-500/50 to-brand-500/20"></div>
                             </div>
                             
-                            {/* Mobile Optimized Grid: Single column on <400px, 2 cols >400px, 4 on desktop */}
-                            <div className="grid grid-cols-1 min-[400px]:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-6">
+                            {/* Mobile Optimized Grid: Force 2 cols on mobile */}
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 lg:gap-6">
                                 {steps.map((step, idx) => (
                                     <div 
                                         key={idx} 
-                                        className={`relative group bg-white dark:bg-stone-950 p-5 md:p-8 rounded-3xl border border-stone-100 dark:border-stone-800 shadow-xl dark:shadow-dark-lg hover:shadow-2xl hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 transform ${idx % 2 !== 0 ? 'lg:translate-y-12' : 'lg:-translate-y-4'}`}
+                                        className={`relative group bg-white dark:bg-stone-950 p-4 md:p-8 rounded-3xl border border-stone-100 dark:border-stone-800 shadow-xl dark:shadow-dark-lg hover:shadow-2xl hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 transform ${idx % 2 !== 0 ? 'lg:translate-y-12' : 'lg:-translate-y-4'}`}
                                     >
                                         {/* Connector Circle (Desktop) */}
                                         <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-brand-500 rounded-full border-4 border-white dark:border-stone-950 z-20 ${idx % 2 !== 0 ? '-top-14' : '-bottom-10'}`}></div>
@@ -1091,7 +1091,7 @@
                                         </div>
                                         
                                         {/* Title in Orange */}
-                                        <h3 className="text-lg md:text-xl font-bold text-brand-600 dark:text-brand-500 mb-2 md:mb-4">{step.title}</h3>
+                                        <h3 className="text-base md:text-xl font-bold text-brand-600 dark:text-brand-500 mb-2 md:mb-4">{step.title}</h3>
                                         
                                         <p className="text-stone-600 dark:text-stone-400 text-xs md:text-sm leading-relaxed">
                                             {step.text}
