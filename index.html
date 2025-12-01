@@ -509,12 +509,14 @@
                             <span className="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-300">End-to-End D2C Solution</span>
                         </div>
                         
-                        <h1 className="text-5xl md:text-7xl font-bold text-stone-900 dark:text-stone-100 leading-[1.1] mb-6 tracking-tight max-w-5xl mx-auto animate-[fadeUp_0.8s_ease-out_0.2s_both]">
+                        {/* Adjusted H1 Size for small screens: text-3xl base to prevent 4 lines, sm:text-5xl */}
+                        <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-stone-900 dark:text-stone-100 leading-[1.1] mb-6 tracking-tight max-w-5xl mx-auto animate-[fadeUp_0.8s_ease-out_0.2s_both]">
                             Launch, Manage & Scale <br/>
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-orange-400 dark:from-brand-500 dark:to-brand-300">Your D2C Brand.</span>
                         </h1>
                         
-                        <p className="text-lg md:text-xl text-stone-600 dark:text-stone-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-[fadeUp_0.8s_ease-out_0.4s_both]">
+                        {/* Adjusted Paragraph Size */}
+                        <p className="text-sm sm:text-lg md:text-xl text-stone-600 dark:text-stone-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-[fadeUp_0.8s_ease-out_0.4s_both]">
                             A complete D2C ecosystem built for sellers who want to grow fast, sell smarter, and operate effortlessly — all under one roof.
                         </p>
                         
@@ -527,34 +529,34 @@
                             </a>
                         </div>
                         
-                        {/* Trust Badges - Real Logos */}
-                        <div className="mt-16 pt-10 border-t border-stone-200/60 dark:border-stone-800/60 flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 animate-[fadeUp_0.8s_ease-out_0.8s_both]">
+                        {/* Trust Badges - Real Logos - Reduced gap for 2 lines on mobile */}
+                        <div className="mt-16 pt-10 border-t border-stone-200/60 dark:border-stone-800/60 flex flex-wrap justify-center items-center gap-x-6 gap-y-4 md:gap-16 opacity-70 animate-[fadeUp_0.8s_ease-out_0.8s_both]">
                             {/* Shopify */}
                             <img 
                                 src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" 
                                 alt="Shopify" 
-                                className="h-10 w-auto object-contain transition-all duration-300"
+                                className="h-8 md:h-10 w-auto object-contain transition-all duration-300"
                             />
                             
                             {/* Meta */}
                             <img 
                                 src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" 
                                 alt="Meta" 
-                                className="h-8 w-auto object-contain transition-all duration-300"
+                                className="h-6 md:h-8 w-auto object-contain transition-all duration-300"
                             />
                             
                             {/* Google Ads */}
                             <img 
                                 src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" 
                                 alt="Google Ads" 
-                                className="h-10 w-auto object-contain transition-all duration-300"
+                                className="h-8 md:h-10 w-auto object-contain transition-all duration-300"
                             />
                             
                             {/* Shiprocket */}
                             <img 
                                 src="https://upload.wikimedia.org/wikipedia/commons/0/00/SR-logo-wiki.png" 
                                 alt="Shiprocket" 
-                                className="h-10 w-auto object-contain transition-all duration-300"
+                                className="h-8 md:h-10 w-auto object-contain transition-all duration-300"
                                 onError={(e) => {
                                     e.target.onerror = null; 
                                     e.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Shiprocket_logo.jpg/320px-Shiprocket_logo.jpg";
@@ -565,7 +567,7 @@
                             <img 
                                 src="https://cdn.brandfetch.io/idrnSGQyne/w/820/h/171/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1756437959212" 
                                 alt="RapidShyp" 
-                                className="h-9 w-auto object-contain transition-all duration-300"
+                                className="h-7 md:h-9 w-auto object-contain transition-all duration-300"
                             />
                         </div>
                     </div>
@@ -606,7 +608,8 @@
                 <section id="services" className="py-24 bg-white dark:bg-stone-950 transition-colors duration-500">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4">Everything You Need to Scale</h2>
+                            {/* Adjusted H2 Size */}
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4">Everything You Need to Scale</h2>
                             <p className="text-stone-600 dark:text-stone-300 text-lg">We handle the technical and operational heavy lifting so you can focus on your brand and product.</p>
                         </div>
 
@@ -684,21 +687,22 @@
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-xs font-bold uppercase tracking-wider mb-4">
                                 Agency Impact
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4">
+                            {/* Adjusted H2 Size */}
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4">
                                 Real Numbers, <span className="text-brand-600 dark:text-brand-500">Real Growth</span>
                             </h2>
                             <p className="text-stone-600 dark:text-stone-300 text-lg">We don't just promise results; we have a track record of delivering them.</p>
                         </div>
 
-                        {/* Updated Grid Layout: 2 cols on mobile (default), 4 cols on desktop (lg) */}
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                        {/* Force 2 cols on mobile, optimized padding/text to prevent elongation */}
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
                             {data.map((item, idx) => (
-                                <div key={idx} className="bg-gradient-to-br from-brand-500/5 to-white dark:from-brand-500/10 dark:to-stone-950 p-5 md:p-6 rounded-2xl border border-brand-200/50 dark:border-brand-500/20 hover:border-brand-400 dark:hover:border-brand-500/50 transition-all duration-300 hover:shadow-lg dark:hover:shadow-brand-900/10 group cursor-default">
+                                <div key={idx} className="bg-gradient-to-br from-brand-500/5 to-white dark:from-brand-500/10 dark:to-stone-950 p-4 md:p-6 rounded-2xl border border-brand-200/50 dark:border-brand-500/20 hover:border-brand-400 dark:hover:border-brand-500/50 transition-all duration-300 hover:shadow-lg dark:hover:shadow-brand-900/10 group cursor-default">
                                     <div className="flex items-center justify-between mb-3">
-                                        <p className="text-brand-600 dark:text-brand-400 text-[10px] md:text-xs font-bold uppercase tracking-wider">{item.label}</p>
-                                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-brand-500 animate-pulse"></div>
+                                        <p className="text-brand-600 dark:text-brand-400 text-[10px] md:text-xs font-bold uppercase tracking-wider truncate mr-1">{item.label}</p>
+                                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-brand-500 animate-pulse flex-shrink-0"></div>
                                     </div>
-                                    <div className="text-2xl md:text-3xl font-bold text-stone-900 dark:text-stone-100 mb-2 group-hover:scale-105 transition-transform origin-left">{item.title}</div>
+                                    <div className="text-xl md:text-3xl font-bold text-stone-900 dark:text-stone-100 mb-2 group-hover:scale-105 transition-transform origin-left">{item.title}</div>
                                     <p className="text-stone-600 dark:text-stone-400 text-xs md:text-sm leading-relaxed">{item.subtitle}</p>
                                 </div>
                             ))}
@@ -707,6 +711,8 @@
                 </section>
             );
         };
+        
+        // ... existing Stats component ...
 
         const Stats = () => {
             return (
@@ -723,7 +729,8 @@
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             <div>
-                                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white dark:text-stone-100">Real Results, Transparent Growth</h2>
+                                {/* Adjusted H2 size */}
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-white dark:text-stone-100">Real Results, Transparent Growth</h2>
                                 <p className="text-stone-400 dark:text-stone-300 text-lg mb-8 max-w-md">
                                     We don't just launch brands; we accelerate them. Our data-first approach ensures every decision drives revenue.
                                 </p>
@@ -850,7 +857,8 @@
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 leading-tight">
+                            {/* Adjusted H2 size */}
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 leading-tight">
                                 Why top brands <br/> trust us to build their engines.
                             </h2>
                             <p className="text-stone-600 dark:text-stone-300 text-lg mb-8 max-w-2xl mx-auto">
@@ -861,22 +869,22 @@
                             </button>
                         </div>
                             
-                        {/* Refined Grid Layout */}
-                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                        {/* Force 2 cols on mobile, optimized padding to prevent elongation */}
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
                             {reasons.map((reason, idx) => (
-                                <div key={idx} className="group relative bg-white dark:bg-stone-900 p-6 rounded-3xl border border-stone-100 dark:border-stone-800 hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 hover:shadow-xl dark:hover:shadow-2xl overflow-hidden">
+                                <div key={idx} className="group relative bg-white dark:bg-stone-900 p-4 md:p-6 rounded-3xl border border-stone-100 dark:border-stone-800 hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 hover:shadow-xl dark:hover:shadow-2xl overflow-hidden">
                                     {/* Hover Gradient Background */}
                                     <div className="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent dark:from-brand-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     
                                     <div className="relative z-10 flex flex-col items-start h-full">
-                                        <div className="mb-6 p-3 rounded-2xl bg-brand-100 dark:bg-stone-800 text-brand-600 dark:text-brand-500 group-hover:bg-brand-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                                        <div className="mb-4 md:mb-6 p-3 rounded-2xl bg-brand-100 dark:bg-stone-800 text-brand-600 dark:text-brand-500 group-hover:bg-brand-600 group-hover:text-white transition-colors duration-300 shadow-sm">
                                             {reason.icon}
                                         </div>
                                         
-                                        <h3 className="text-lg md:text-xl font-bold text-stone-900 dark:text-stone-100 mb-3 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
+                                        <h3 className="text-base md:text-xl font-bold text-stone-900 dark:text-stone-100 mb-2 md:mb-3 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
                                             {reason.title}
                                         </h3>
-                                        <p className="text-sm md:text-base text-stone-600 dark:text-stone-400 leading-relaxed">
+                                        <p className="text-xs md:text-base text-stone-600 dark:text-stone-400 leading-relaxed">
                                             {reason.desc}
                                         </p>
                                     </div>
@@ -901,7 +909,8 @@
                             <div className="inline-block bg-brand-500 text-white text-sm font-bold px-4 py-1.5 rounded-full mb-6 shadow-lg shadow-brand-500/30">
                                 PARTNERSHIP MODEL
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-100 mb-6 leading-tight">
+                            {/* Adjusted H2 Size */}
+                            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-100 mb-6 leading-tight">
                                 Your ROI is our priority, <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400 dark:from-brand-500 dark:to-brand-300">Billing Happens Only on Success.</span>
                             </h2>
@@ -910,48 +919,48 @@
                             </p>
                         </div>
 
-                        {/* Mobile Optimized Grid: 2 cols on mobile with adjusted spacing/sizing */}
-                        <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto">
+                        {/* Mobile Optimized Grid: Force 2 cols on mobile */}
+                        <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6 max-w-5xl mx-auto">
                             {/* Card 1: Subscription Fee - NOW HIGHLIGHTED (Orange) */}
-                            <div className="bg-brand-600 dark:bg-brand-700 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-brand-500 dark:border-brand-600 relative overflow-hidden text-white shadow-xl shadow-brand-900/20 group hover:border-brand-400 transition-all duration-300 h-full">
+                            <div className="bg-brand-600 dark:bg-brand-700 p-4 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-brand-500 dark:border-brand-600 relative overflow-hidden text-white shadow-xl shadow-brand-900/20 group hover:border-brand-400 transition-all duration-300 h-full">
                                 <div className="absolute -top-10 -right-10 w-32 h-32 md:w-48 md:h-48 bg-white/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500"></div>
                                 <div className="relative z-10">
-                                    <div className="text-4xl md:text-6xl font-bold mb-2">₹0</div>
-                                    <h3 className="text-lg md:text-2xl font-bold text-white mb-2 leading-tight">Subscription Fee</h3>
-                                    <p className="text-xs md:text-base text-brand-100">No monthly retainers. No hidden fixed costs.</p>
+                                    <div className="text-3xl md:text-6xl font-bold mb-2">₹0</div>
+                                    <h3 className="text-base md:text-2xl font-bold text-white mb-2 leading-tight">Subscription Fee</h3>
+                                    <p className="text-[10px] md:text-base text-brand-100">No monthly retainers. No hidden fixed costs.</p>
                                 </div>
                             </div>
 
                             {/* Card 2: Setup Cost - NOW NEUTRAL (Stone) */}
-                            <div className="bg-stone-50 dark:bg-stone-900 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 relative overflow-hidden group hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 h-full">
+                            <div className="bg-stone-50 dark:bg-stone-900 p-4 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 relative overflow-hidden group hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 h-full">
                                 <div className="absolute top-0 right-0 w-20 h-20 md:w-32 md:h-32 bg-stone-200 dark:bg-stone-800 rounded-bl-full opacity-50 group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors"></div>
                                 <div className="relative z-10">
                                     <div className="mb-2">
-                                        <span className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-100">₹8999</span>
-                                        <span className="text-2xl md:text-4xl font-bold text-stone-500 dark:text-stone-400 align-top">*</span>
+                                        <span className="text-3xl md:text-6xl font-bold text-stone-900 dark:text-stone-100">₹8999</span>
+                                        <span className="text-xl md:text-4xl font-bold text-stone-500 dark:text-stone-400 align-top">*</span>
                                     </div>
-                                    <h3 className="text-lg md:text-2xl font-bold text-stone-800 dark:text-stone-200 mb-2 leading-tight">Website Setup & Engg.</h3>
-                                    <p className="text-xs md:text-base text-stone-500 dark:text-stone-400">One-time cost for a high-performance store setup.</p>
+                                    <h3 className="text-base md:text-2xl font-bold text-stone-800 dark:text-stone-200 mb-2 leading-tight">Website Setup & Engg.</h3>
+                                    <p className="text-[10px] md:text-base text-stone-500 dark:text-stone-400">One-time cost for a high-performance store setup.</p>
                                 </div>
                             </div>
 
                             {/* Card 3: Marketing Commission - Orange */}
-                            <div className="bg-brand-600 dark:bg-brand-700 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-brand-500 dark:border-brand-600 relative overflow-hidden text-white shadow-xl shadow-brand-900/20 group h-full">
+                            <div className="bg-brand-600 dark:bg-brand-700 p-4 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-brand-500 dark:border-brand-600 relative overflow-hidden text-white shadow-xl shadow-brand-900/20 group h-full">
                                 <div className="absolute -top-10 -left-10 w-32 h-32 md:w-48 md:h-48 bg-white/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500"></div>
                                 <div className="relative z-10">
-                                    <div className="text-4xl md:text-6xl font-bold mb-2">0%</div>
-                                    <h3 className="text-lg md:text-2xl font-bold text-white mb-2 leading-tight">Commission on Ads</h3>
-                                    <p className="text-xs md:text-base text-brand-100">We don't tax your marketing budget. Every rupee goes to ads.</p>
+                                    <div className="text-3xl md:text-6xl font-bold mb-2">0%</div>
+                                    <h3 className="text-base md:text-2xl font-bold text-white mb-2 leading-tight">Commission on Ads</h3>
+                                    <p className="text-[10px] md:text-base text-brand-100">We don't tax your marketing budget. Every rupee goes to ads.</p>
                                 </div>
                             </div>
 
                             {/* Card 4: Success Fee - Neutral */}
-                            <div className="bg-stone-50 dark:bg-stone-900 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 relative overflow-hidden group hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 h-full">
+                            <div className="bg-stone-50 dark:bg-stone-900 p-4 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 relative overflow-hidden group hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 h-full">
                                 <div className="absolute bottom-0 left-0 w-20 h-20 md:w-32 md:h-32 bg-stone-200 dark:bg-stone-800 rounded-tr-full opacity-50 group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors"></div>
                                 <div className="relative z-10">
-                                    <div className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-100 mb-2">3%</div>
-                                    <h3 className="text-lg md:text-2xl font-bold text-stone-800 dark:text-stone-200 mb-2 leading-tight">+ GST</h3>
-                                    <p className="text-xs md:text-base text-stone-500 dark:text-stone-400">On delivered orders only. We earn when you actually sell.</p>
+                                    <div className="text-3xl md:text-6xl font-bold text-stone-900 dark:text-stone-100 mb-2">3%</div>
+                                    <h3 className="text-base md:text-2xl font-bold text-stone-800 dark:text-stone-200 mb-2 leading-tight">+ GST</h3>
+                                    <p className="text-[10px] md:text-base text-stone-500 dark:text-stone-400">On delivered orders only. We earn when you actually sell.</p>
                                 </div>
                             </div>
                         </div>
@@ -966,7 +975,8 @@
                 </section>
             );
         };
-
+        
+        // ADDED MISSING TESTIMONIALS COMPONENT
         const Testimonials = () => {
             const testimonials = [
                 {
@@ -1047,7 +1057,8 @@
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         <div className="text-center mb-20">
-                            <h2 className="text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6">
+                            {/* Adjusted H2 Size */}
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6">
                                 Your Roadmap to <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400">D2C Success</span>
                             </h2>
                             <p className="text-stone-600 dark:text-stone-300 text-lg max-w-2xl mx-auto">
@@ -1061,12 +1072,12 @@
                                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-brand-500/20 via-brand-500/50 to-brand-500/20"></div>
                             </div>
                             
-                            {/* Mobile Optimized Grid: 2 cols on mobile, 4 on desktop */}
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-6">
+                            {/* Mobile Optimized Grid: Force 2 cols on mobile */}
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 lg:gap-6">
                                 {steps.map((step, idx) => (
                                     <div 
                                         key={idx} 
-                                        className={`relative group bg-white dark:bg-stone-950 p-5 md:p-8 rounded-3xl border border-stone-100 dark:border-stone-800 shadow-xl dark:shadow-dark-lg hover:shadow-2xl hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 transform ${idx % 2 !== 0 ? 'lg:translate-y-12' : 'lg:-translate-y-4'}`}
+                                        className={`relative group bg-white dark:bg-stone-950 p-4 md:p-8 rounded-3xl border border-stone-100 dark:border-stone-800 shadow-xl dark:shadow-dark-lg hover:shadow-2xl hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 transform ${idx % 2 !== 0 ? 'lg:translate-y-12' : 'lg:-translate-y-4'}`}
                                     >
                                         {/* Connector Circle (Desktop) */}
                                         <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-brand-500 rounded-full border-4 border-white dark:border-stone-950 z-20 ${idx % 2 !== 0 ? '-top-14' : '-bottom-10'}`}></div>
@@ -1080,7 +1091,7 @@
                                         </div>
                                         
                                         {/* Title in Orange */}
-                                        <h3 className="text-lg md:text-xl font-bold text-brand-600 dark:text-brand-500 mb-2 md:mb-4">{step.title}</h3>
+                                        <h3 className="text-base md:text-xl font-bold text-brand-600 dark:text-brand-500 mb-2 md:mb-4">{step.title}</h3>
                                         
                                         <p className="text-stone-600 dark:text-stone-400 text-xs md:text-sm leading-relaxed">
                                             {step.text}
@@ -1101,7 +1112,8 @@
                         <div className="bg-brand-50 dark:bg-stone-900 rounded-[3rem] p-12 md:p-20 text-center mb-20 relative overflow-hidden border border-transparent dark:border-stone-800 shadow-none dark:shadow-dark-xl">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-200 dark:bg-brand-900/20 rounded-full blur-3xl opacity-50 dark:opacity-100 -translate-y-1/2 translate-x-1/2"></div>
                             
-                            <h2 className="text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 relative z-10">
+                            {/* Adjusted H2 Size */}
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 relative z-10">
                                 Ready to build your <br/> <span className="text-brand-600">D2C Brand?</span>
                             </h2>
                             <p className="text-xl text-stone-600 dark:text-stone-300 mb-10 max-w-2xl mx-auto relative z-10">
