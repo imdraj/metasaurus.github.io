@@ -233,6 +233,11 @@
             <Icon {...props}><path d="M21.5 2v6h-6" /><path d="M2.5 22v-6h6" /><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8" /><path d="M22 12.5a10 10 0 0 1-18.8 4.2L2.5 16" /></Icon>
         );
         
+        // New Mail Icon
+        const IconMail = (props) => (
+            <Icon {...props}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></Icon>
+        );
+
         // New Calendar Icon for Booking Modal
         const IconCalendar = (props) => (
             <Icon {...props}>
@@ -1101,7 +1106,8 @@
                         <div className="bg-brand-50 dark:bg-stone-900 rounded-[3rem] p-12 md:p-20 text-center mb-20 relative overflow-hidden border border-transparent dark:border-stone-800 shadow-none dark:shadow-dark-xl">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-200 dark:bg-brand-900/20 rounded-full blur-3xl opacity-50 dark:opacity-100 -translate-y-1/2 translate-x-1/2"></div>
                             
-                            <h2 className="text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 relative z-10">
+                            {/* Adjusted H2 Size */}
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 relative z-10">
                                 Ready to build your <br/> <span className="text-brand-600">D2C Brand?</span>
                             </h2>
                             <p className="text-xl text-stone-600 dark:text-stone-300 mb-10 max-w-2xl mx-auto relative z-10">
@@ -1112,7 +1118,8 @@
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 border-t border-stone-100 dark:border-stone-800 pt-12">
+                        {/* Changed grid gap from gap-8 to gap-4 to reduce spacing */}
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12 border-t border-stone-100 dark:border-stone-800 pt-12">
                             <div className="col-span-2 md:col-span-1">
                                 {/* Updated Footer Logo: Restored working URL */}
                                 <div className="flex flex-col items-start gap-1 mb-4">
@@ -1129,7 +1136,8 @@
                                 <p className="text-stone-500 dark:text-stone-400 text-sm mb-6">
                                     The complete operating system for modern D2C brands.
                                 </p>
-                                <div className="flex gap-4 items-center">
+                                
+                                <div className="flex gap-4 items-center mb-6">
                                     <a href="https://www.linkedin.com/company/metasaurus" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" alt="LinkedIn" className="h-6 w-6" />
                                     </a>
@@ -1168,6 +1176,17 @@
                                 <ul className="space-y-2 text-sm text-stone-500 dark:text-stone-400">
                                     <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Privacy</a></li>
                                     <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Terms</a></li>
+                                </ul>
+                            </div>
+                            {/* New Contact Column */}
+                            <div>
+                                <h4 className="font-bold text-stone-900 dark:text-stone-100 mb-4">Contact</h4>
+                                <ul className="space-y-2 text-sm text-stone-500 dark:text-stone-400">
+                                    <li>
+                                        <a href="mailto:contact@metasaurus.in" className="hover:text-brand-600 dark:hover:text-brand-500 flex items-center gap-2">
+                                            contact@metasaurus.in
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
