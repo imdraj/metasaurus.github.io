@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch & Scale Your D2C Brand</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans for a modern, friendly feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* Background handled by React wrapper now for theme switching */
+        }
+        
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        /* Dark mode scrollbar handled via classes where possible, or defaults */
+        .dark ::-webkit-scrollbar-track { background: #1c1917; }
+        .dark ::-webkit-scrollbar-thumb { background: #44403c; }
+        ::-webkit-scrollbar-thumb {
+            background: #d6d3d1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a29e;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enables class-based dark mode toggling
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c', // Primary accent
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                            950: '#431407',
+                        },
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4', // Main light text (in dark mode)
+                            200: '#e7e5e4',
+                            300: '#d6d3d1', 
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c', 
+                            800: '#292524', 
+                            900: '#1c1917', 
+                            950: '#0c0a09', 
+                        }
+                    },
+                    boxShadow: {
+                        'dark-sm': '0 1px 2px 0 rgba(0, 0, 0, 0.3)',
+                        'dark-md': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.16)',
+                        'dark-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15)',
+                        'dark-xl': '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- Icons ---
+        const Icon = ({ children, size = 24, className = "", ...props }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>{children}</svg>
+        );
+
+        const ArrowRight = (props) => (<Icon {...props}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></Icon>);
+        
+        // Reverting to Rocket Icon for Growth Engine
+        const Rocket = (props) => (
+            <Icon {...props}>
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                <path d="M9 2c0 2.48.33 5.43 2.05 7.95" />
+                <path d="M15 22c-2.48 0-5.43-.33-7.95-2.05" />
+            </Icon>
+        );
+
+        const Store = (props) => (<Icon {...props}><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" /><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" /><path d="M2 7h20" /><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7" /></Icon>);
+        const BarChart3 = (props) => (<Icon {...props}><path d="M3 3v18h18" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></Icon>);
+        const Package = (props) => (<Icon {...props}><path d="m7.5 4.27 9 5.15" /><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" /><path d="m3.3 7 8.7 5 8.7-5" /><path d="M12 22v-9" /></Icon>);
+        const CheckCircle2 = (props) => (<Icon {...props}><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></Icon>);
+        const TrendingUp = (props) => (<Icon {...props}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></Icon>);
+        const Users = (props) => (<Icon {...props}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></Icon>);
+        const Smartphone = (props) => (<Icon {...props}><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></Icon>);
+        const CreditCard = (props) => (<Icon {...props}><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></Icon>);
+        const ShieldCheck = (props) => (<Icon {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /><path d="m9 12 2 2 4-4" /></Icon>);
+        const Zap = (props) => (<Icon {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></Icon>);
+        const Menu = (props) => (<Icon {...props}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></Icon>);
+        const X = (props) => (<Icon {...props}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></Icon>);
+        const ArrowUpRight = (props) => (<Icon {...props}><path d="M7 7h10v10" /><path d="M7 17 17 7" /></Icon>);
+        
+        // Social Media Icons components removed in favor of Image tags for original colors
+
+        // Theme Icons
+        const Sun = (props) => (<Icon {...props}><circle cx="12" cy="12" r="5" /><path d="M12 1v2" /><path d="M12 21v2" /><path d="M4.22 4.22l1.42 1.42" /><path d="M18.36 18.36l1.42 1.42" /><path d="M1 12h2" /><path d="M21 12h2" /><path d="M4.22 19.78l1.42-1.42" /><path d="M18.36 5.64l1.42-1.42" /></Icon>);
+        const Moon = (props) => (<Icon {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></Icon>);
+
+        // --- Brand Logos (Cleaned & Optimized) ---
+        const ShopifyLogo = (props) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                <path d="M21.575 6.656a.66.66 0 0 0-.155-.386.67.67 0 0 0-.412-.222l-3.328-.567-1.125-4.22a.67.67 0 0 0-.463-.474.673.673 0 0 0-.616.142L9.24 5.922l-6.27-.996a.662.662 0 0 0-.583.187.67.67 0 0 0-.214.567L3.6 20.37a2.6 2.6 0 0 0 2.54 2.158h12.783a2.6 2.6 0 0 0 2.54-2.16l2.112-13.712zM15.5 16a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+            </svg>
+        );
+
+        const MetaLogo = (props) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.07 15.08c-.76.22-1.57.14-2.28-.21-.71-.36-1.25-.99-1.52-1.77-.18-.51-.23-1.07-.15-1.61.12-.87.58-1.65 1.28-2.17.65-.48 1.45-.71 2.25-.65 1.05.08 2.01.62 2.65 1.48.06.09.11.18.15.27.46-.88 1.4-1.54 2.45-1.63 1.05-.09 2.09.38 2.76 1.23.63.81.82 1.86.51 2.85-.31.99-1.12 1.76-2.12 2.01-.76.19-1.56.07-2.25-.33-.66-.39-1.14-1.03-1.35-1.78-.07-.26-.1-.53-.08-.79-.02.32-.08.64-.19.95-.27.8-1.01 1.41-1.85 1.52-.09.01-.17.02-.26.02z"/>
+            </svg>
+        );
+
+        const GoogleAdsLogo = (props) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                <path d="M21.36 16.44l-8.5-14.7a1.99 1.99 0 0 0-2.69-.72l-1.32.76.01.01-4.35 2.5c-.83.48-1.12 1.54-.64 2.37l.63 1.09L1.87 11.6c-.84.48-1.12 1.54-.64 2.37l4.03 7c.48.83 1.54 1.12 2.37.64l5.65-3.26 2.38 4.13c.48.83 1.54 1.12 2.37.64l2.6-1.5c.83-.49 1.12-1.54.63-2.38zM8.34 18.23l-3.32-5.75 6.64-3.83 3.32 5.75-6.64 3.83zm8.38-6.19l-4.57-7.9 1.72-1 4.57 7.9-1.72 1z"/>
+            </svg>
+        );
+
+        const ShiprocketLogo = (props) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                <path d="M12 2.5l-9 16h18l-9-16z" />
+                <path d="M7 19.5h10v2h-10z" />
+            </svg>
+        );
+
+        const RapidShypLogo = (props) => (
+            <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                <path d="M4 12h16l-4-8H8l-4 8z" />
+                <path d="M4 14h16v6H4v-6z" />
+            </svg>
+        );
+
+        // --- Custom Generated Logos for Testimonials ---
+        
+        const JevoraLogo = (props) => (
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+                <circle cx="20" cy="20" r="20" fill="#f97316"/>
+                <path d="M22 10V22C22 25.3137 19.3137 28 16 28H14" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+                <circle cx="22" cy="10" r="2" fill="white"/>
+            </svg>
+        );
+
+        const YatraLogo = (props) => (
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+                <rect width="40" height="40" rx="20" fill="#f97316"/>
+                <path d="M12 20L20 12L28 20" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M20 12V28" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+        );
+
+        const PureHomeLogo = (props) => (
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+                <rect width="40" height="40" rx="8" fill="#f97316"/>
+                <path d="M10 20L20 10L30 20" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                <rect x="14" y="20" width="12" height="10" stroke="white" strokeWidth="3" strokeLinejoin="round"/>
+            </svg>
+        );
+
+        // New Icons for Why Us Section
+        const IconLayers = (props) => (
+            <Icon {...props}><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></Icon>
+        );
+        const IconZap = (props) => (
+            <Icon {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></Icon>
+        );
+        const IconCpu = (props) => (
+            <Icon {...props}><rect x="4" y="4" width="16" height="16" rx="2" ry="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" /><line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" /><line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" /><line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" /></Icon>
+        );
+        const IconEye = (props) => (
+            <Icon {...props}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></Icon>
+        );
+        
+        // Fixed Wallet Icon
+        const IconWallet = (props) => (
+            <Icon {...props}>
+                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z" />
+            </Icon>
+        );
+
+        const IconRefresh = (props) => (
+            <Icon {...props}><path d="M21.5 2v6h-6" /><path d="M2.5 22v-6h6" /><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8" /><path d="M22 12.5a10 10 0 0 1-18.8 4.2L2.5 16" /></Icon>
+        );
+        
+        // New Calendar Icon for Booking Modal
+        const IconCalendar = (props) => (
+            <Icon {...props}>
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+            </Icon>
+        );
+
+        // --- Components ---
+
+        // BookingModal Component
+        const BookingModal = ({ isOpen, onClose }) => {
+            if (!isOpen) return null;
+
+            const [formData, setFormData] = useState({
+                name: '',
+                phone: '+91', // Pre-filled with +91
+                email: ''
+            });
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                // Handle form submission logic here (e.g., send to API)
+                console.log('Form submitted:', formData);
+                alert("Thanks! We'll be in touch shortly.");
+                onClose();
+            };
+
+            return (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" onClick={onClose}></div>
+                    <div className="relative w-full max-w-md bg-white dark:bg-stone-900 rounded-3xl p-8 shadow-2xl animate-[fadeUp_0.3s_ease-out] border border-stone-100 dark:border-stone-800">
+                        <button 
+                            onClick={onClose}
+                            className="absolute top-4 right-4 p-2 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors"
+                        >
+                            <X size={24} />
+                        </button>
+                        
+                        <div className="mb-8 text-center">
+                            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-500 mb-4">
+                                {/* Changed to Calendar Icon */}
+                                <IconCalendar size={24} />
+                            </div>
+                            <h3 className="text-2xl font-bold text-stone-900 dark:text-stone-100 mb-2">Book Your Strategy Call</h3>
+                            <p className="text-stone-600 dark:text-stone-400 text-sm">Let's discuss how we can scale your D2C brand.</p>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">Full Name <span className="text-red-500">*</span></label>
+                                <input 
+                                    type="text" 
+                                    required 
+                                    className="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none text-stone-900 dark:text-stone-100 transition-all placeholder:text-stone-400"
+                                    placeholder="Your name"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                />
+                            </div>
+                            
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">Phone Number <span className="text-red-500">*</span></label>
+                                <input 
+                                    type="tel" 
+                                    required 
+                                    className="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none text-stone-900 dark:text-stone-100 transition-all placeholder:text-stone-400"
+                                    placeholder="+91 9876543210"
+                                    value={formData.phone}
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        // Allow + at the start, followed by digits
+                                        if (/^\+?[0-9]*$/.test(val)) {
+                                            setFormData({...formData, phone: val});
+                                        }
+                                    }}
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">Email Address <span className="text-stone-400 font-normal">(Optional)</span></label>
+                                <input 
+                                    type="email" 
+                                    className="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none text-stone-900 dark:text-stone-100 transition-all placeholder:text-stone-400"
+                                    placeholder=""
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                />
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                className="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand-600/20 transition-all transform active:scale-[0.98] mt-2"
+                            >
+                                Schedule Call
+                            </button>
+                            
+                            <p className="text-xs text-center text-stone-400 dark:text-stone-500 mt-4">
+                                By booking, you agree to our Terms & Privacy Policy.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            );
+        };
+
+        // Trustpilot Badge Component
+        const TrustpilotBadge = () => (
+            <div className="flex flex-col items-center gap-1 mt-6 w-fit">
+                <span className="font-bold text-stone-900 dark:text-stone-100 text-sm">Excellent</span>
+                <div className="flex gap-1">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="w-6 h-6 bg-[#00b67a] flex items-center justify-center">
+                            <svg viewBox="0 0 24 24" fill="white" className="w-4 h-4">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                    ))}
+                    {/* Half Star */}
+                    <div className="w-6 h-6 bg-gradient-to-r from-[#00b67a] from-50% to-[#dcdce6] to-50% flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" fill="white" className="w-4 h-4">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                    </div>
+                </div>
+                <div className="flex items-center gap-1 mt-1 text-xs text-stone-500 dark:text-stone-400">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-[#00b67a]">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <span className="font-medium">Trustpilot</span>
+                </div>
+            </div>
+        );
+
+        const Nav = ({ isDark, toggleTheme, onOpenModal }) => {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const navLinks = [
+                { name: 'Services', href: '#services' },
+                { name: 'Our Impact', href: '#impact' }, // Added "Our Impact" link
+                { name: 'Why Us', href: '#why-us' },
+                { name: 'Pricing', href: '#pricing' },
+                { name: 'How It Works', href: '#how-it-works' },
+            ];
+
+            return (
+                <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 dark:bg-stone-900/90 backdrop-blur-md shadow-sm dark:shadow-dark-sm py-4' : 'bg-transparent py-6'}`}>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                        
+                        {/* Updated Logo: Restored working URL */}
+                        <div className="flex flex-col items-center justify-center gap-1">
+                            <img 
+                                src="https://lh3.googleusercontent.com/d/1EoD8aYlMP9BkFdXV3-voijf-SAv01sps" 
+                                alt="MetaSaurus Logo" 
+                                className="h-8 md:h-10 w-auto object-contain transition-all duration-300"
+                            />
+                            <span className="text-xl md:text-2xl font-bold tracking-tight leading-none">
+                                <span className="text-stone-900 dark:text-stone-100">Meta</span>
+                                <span style={{ color: '#FF8544' }}>Saurus</span>
+                            </span>
+                        </div>
+
+                        {/* Desktop Nav */}
+                        <div className="hidden md:flex items-center gap-8">
+                            {navLinks.map((link) => (
+                                <a key={link.name} href={link.href} className="text-stone-600 dark:text-stone-300 hover:text-brand-600 dark:hover:text-brand-500 font-medium transition-colors text-sm">
+                                    {link.name}
+                                </a>
+                            ))}
+                            
+                            {/* Theme Toggle */}
+                            <button 
+                                onClick={toggleTheme} 
+                                className="p-2 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors"
+                                aria-label="Toggle Dark Mode"
+                            >
+                                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+
+                            <button onClick={onOpenModal} className="bg-stone-900 dark:bg-brand-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-600 dark:hover:bg-brand-700 transition-colors duration-300 shadow-lg shadow-stone-900/10 dark:shadow-brand-900/20">
+                                Get Started
+                            </button>
+                        </div>
+
+                        {/* Mobile Toggle */}
+                        <div className="md:hidden flex items-center gap-4">
+                            <button 
+                                onClick={toggleTheme} 
+                                className="p-2 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300"
+                            >
+                                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+                            <button className="text-stone-900 dark:text-stone-100" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Mobile Menu */}
+                    {isMobileMenuOpen && (
+                        <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-stone-900 border-b border-stone-100 dark:border-stone-800 p-4 flex flex-col gap-4 shadow-xl dark:shadow-dark-xl">
+                            {navLinks.map((link) => (
+                                <a key={link.name} href={link.href} onClick={() => setIsMobileMenuOpen(false)} className="text-stone-600 dark:text-stone-300 font-medium py-2 hover:text-brand-600 dark:hover:text-brand-500">
+                                    {link.name}
+                                </a>
+                            ))}
+                            <button 
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    onOpenModal();
+                                }} 
+                                className="bg-brand-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-brand-700"
+                            >
+                                Get Started
+                            </button>
+                        </div>
+                    )}
+                </nav>
+            );
+        };
+
+        const Hero = ({ onOpenModal }) => {
+            return (
+                <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-br from-brand-50 to-stone-50 dark:from-stone-900 dark:to-stone-950 transition-colors duration-500">
+                    {/* Background decorations */}
+                    <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-50/50 dark:bg-brand-900/10 rounded-bl-[100px] -z-10 filter blur-3xl transition-colors duration-500"></div>
+                    <div className="absolute bottom-20 left-10 w-64 h-64 bg-yellow-100/40 dark:bg-brand-800/20 rounded-full blur-3xl -z-10 transition-colors duration-500"></div>
+                    
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-sm dark:shadow-dark-sm mb-8 animate-[fadeUp_0.8s_ease-out]">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            <span className="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-300">End-to-End D2C Solution</span>
+                        </div>
+                        
+                        <h1 className="text-5xl md:text-7xl font-bold text-stone-900 dark:text-stone-100 leading-[1.1] mb-6 tracking-tight max-w-5xl mx-auto animate-[fadeUp_0.8s_ease-out_0.2s_both]">
+                            Launch, Manage & Scale <br/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-orange-400 dark:from-brand-500 dark:to-brand-300">Your D2C Brand.</span>
+                        </h1>
+                        
+                        <p className="text-lg md:text-xl text-stone-600 dark:text-stone-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-[fadeUp_0.8s_ease-out_0.4s_both]">
+                            A complete D2C ecosystem built for sellers who want to grow fast, sell smarter, and operate effortlessly — all under one roof.
+                        </p>
+                        
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-[fadeUp_0.8s_ease-out_0.6s_both]">
+                            <button onClick={onOpenModal} className="px-8 py-4 bg-stone-900 dark:bg-brand-600 hover:bg-brand-600 dark:hover:bg-brand-700 text-white rounded-full font-semibold text-lg transition-all shadow-xl shadow-stone-900/20 dark:shadow-brand-900/30 hover:shadow-brand-600/30 flex items-center gap-2 group">
+                                Start Your D2C Journey <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+                            <a href="#how-it-works" className="px-8 py-4 bg-white dark:bg-transparent text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white rounded-full font-semibold text-lg border border-stone-200 dark:border-stone-700 hover:border-stone-300 dark:hover:border-stone-500 transition-all shadow-sm dark:hover:bg-stone-800/50">
+                                See How It Works
+                            </a>
+                        </div>
+                        
+                        {/* Trust Badges - Real Logos */}
+                        <div className="mt-16 pt-10 border-t border-stone-200/60 dark:border-stone-800/60 flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 animate-[fadeUp_0.8s_ease-out_0.8s_both]">
+                            {/* Shopify */}
+                            <img 
+                                src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" 
+                                alt="Shopify" 
+                                className="h-10 w-auto object-contain transition-all duration-300"
+                            />
+                            
+                            {/* Meta */}
+                            <img 
+                                src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" 
+                                alt="Meta" 
+                                className="h-8 w-auto object-contain transition-all duration-300"
+                            />
+                            
+                            {/* Google Ads */}
+                            <img 
+                                src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" 
+                                alt="Google Ads" 
+                                className="h-10 w-auto object-contain transition-all duration-300"
+                            />
+                            
+                            {/* Shiprocket */}
+                            <img 
+                                src="https://upload.wikimedia.org/wikipedia/commons/0/00/SR-logo-wiki.png" 
+                                alt="Shiprocket" 
+                                className="h-10 w-auto object-contain transition-all duration-300"
+                                onError={(e) => {
+                                    e.target.onerror = null; 
+                                    e.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Shiprocket_logo.jpg/320px-Shiprocket_logo.jpg";
+                                }}
+                            />
+                            
+                            {/* RapidShyp */}
+                            <img 
+                                src="https://cdn.brandfetch.io/idrnSGQyne/w/820/h/171/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1756437959212" 
+                                alt="RapidShyp" 
+                                className="h-9 w-auto object-contain transition-all duration-300"
+                            />
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Services = () => {
+            const services = [
+                {
+                    icon: <Store size={32} className="text-brand-600 dark:text-brand-500" />,
+                    title: "Store Creation",
+                    description: "High-converting Shopify websites with premium UX design, seamless payment gateways, and optimized product setups.",
+                    tags: ["Shopify", "UX/UI", "Payments", "Mobile-First", "SEO-Ready", "Secure"]
+                },
+                {
+                    // Reverted to Rocket icon
+                    icon: <Rocket size={32} className="text-blue-600 dark:text-blue-500" />,
+                    title: "Growth Engine",
+                    description: "Complete setup of Meta & Google ad accounts, pixel tracking, and deep-dive analytics infrastructure.",
+                    tags: ["Ads Setup", "Tracking", "Analytics", "Audience Building", "Pixel Setup", "GTM"]
+                },
+                {
+                    icon: <TrendingUp size={32} className="text-green-600 dark:text-green-500" />,
+                    title: "Performance Marketing",
+                    description: "Data-driven campaigns, daily optimization, and transparent reporting to maximize your ROAS.",
+                    tags: ["Campaigns", "Scaling", "Reporting", "ROAS Focus", "A/B Testing", "Daily Optimization"]
+                },
+                {
+                    icon: <Package size={32} className="text-purple-600 dark:text-purple-500" />,
+                    title: "Logistics Management",
+                    description: "End-to-end shipping solutions, warehousing coordination, and automated fulfillment workflows.",
+                    tags: ["Shipping", "Fulfillment", "Returns", "Warehousing", "Order Tracking", "Last-Mile"]
+                }
+            ];
+
+            return (
+                <section id="services" className="py-24 bg-white dark:bg-stone-950 transition-colors duration-500">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center max-w-3xl mx-auto mb-16">
+                            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4">Everything You Need to Scale</h2>
+                            <p className="text-stone-600 dark:text-stone-300 text-lg">We handle the technical and operational heavy lifting so you can focus on your brand and product.</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {services.map((service, index) => (
+                                <div key={index} className="group p-8 rounded-3xl bg-stone-50 dark:bg-stone-900 hover:bg-brand-50 dark:hover:bg-stone-800 border border-stone-100 dark:border-stone-800 hover:border-brand-200 dark:hover:border-brand-900/50 hover:shadow-xl dark:hover:shadow-dark-xl hover:shadow-brand-900/10 transition-all duration-300">
+                                    <div className="w-14 h-14 rounded-2xl bg-white dark:bg-stone-800 flex items-center justify-center mb-6 shadow-sm dark:shadow-dark-sm border border-stone-100 dark:border-stone-700 group-hover:scale-110 transition-transform duration-300 group-hover:bg-white dark:group-hover:bg-stone-700">
+                                        {service.icon}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-3">{service.title}</h3>
+                                    <p className="text-stone-600 dark:text-stone-300 mb-6 leading-relaxed text-sm">{service.description}</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {service.tags.map(tag => (
+                                            <span key={tag} className="text-xs font-medium px-2.5 py-1 rounded-md bg-stone-200/50 dark:bg-stone-800 text-stone-600 dark:text-stone-400 dark:border dark:border-stone-700">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Impact = () => {
+            const data = [
+                { 
+                    label: "REVENUE",
+                    title: "₹55 Crore+", 
+                    subtitle: "Annual Sales Across Sellers"
+                },
+                { 
+                    label: "SCALING",
+                    title: "10+ Sellers", 
+                    subtitle: "Doing ₹2 Crore+ Sales Annually"
+                },
+                { 
+                    label: "ADOPTION",
+                    title: "> 75%", 
+                    subtitle: "Sellers Selling on D2C for the First Time"
+                },
+                { 
+                    label: "EFFICIENCY",
+                    title: "7x ROAS", 
+                    subtitle: "Average Maintained for Scaling Brands"
+                },
+                { 
+                    label: "PROFITABILITY",
+                    title: "80% Brands", 
+                    subtitle: "Achieves Profitability in First 4-5 Weeks"
+                },
+                { 
+                    label: "DEVELOPMENT",
+                    title: "100+ Shopify", 
+                    subtitle: "Stores Built with High Conversion Layout"
+                },
+                { 
+                    label: "AD SPEND",
+                    title: "₹10 Crore+", 
+                    subtitle: "Spend Managed Across Meta & Google"
+                },
+                { 
+                    label: "LOGISTICS",
+                    title: "40% Less RTO", 
+                    subtitle: "Using Our End-to-End Logistics Solutions"
+                }
+            ];
+
+            return (
+                <section id="impact" className="py-24 bg-stone-50 dark:bg-stone-900 border-y border-stone-200 dark:border-stone-800 transition-colors duration-500">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center max-w-3xl mx-auto mb-16">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-xs font-bold uppercase tracking-wider mb-4">
+                                Agency Impact
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4">
+                                Real Numbers, <span className="text-brand-600 dark:text-brand-500">Real Growth</span>
+                            </h2>
+                            <p className="text-stone-600 dark:text-stone-300 text-lg">We don't just promise results; we have a track record of delivering them.</p>
+                        </div>
+
+                        {/* Updated Grid Layout: 2 cols on mobile (default), 4 cols on desktop (lg) */}
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                            {data.map((item, idx) => (
+                                <div key={idx} className="bg-gradient-to-br from-brand-500/5 to-white dark:from-brand-500/10 dark:to-stone-950 p-5 md:p-6 rounded-2xl border border-brand-200/50 dark:border-brand-500/20 hover:border-brand-400 dark:hover:border-brand-500/50 transition-all duration-300 hover:shadow-lg dark:hover:shadow-brand-900/10 group cursor-default">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <p className="text-brand-600 dark:text-brand-400 text-[10px] md:text-xs font-bold uppercase tracking-wider">{item.label}</p>
+                                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-brand-500 animate-pulse"></div>
+                                    </div>
+                                    <div className="text-2xl md:text-3xl font-bold text-stone-900 dark:text-stone-100 mb-2 group-hover:scale-105 transition-transform origin-left">{item.title}</div>
+                                    <p className="text-stone-600 dark:text-stone-400 text-xs md:text-sm leading-relaxed">{item.subtitle}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Stats = () => {
+            return (
+                <section className="py-20 bg-stone-900 text-white overflow-hidden relative border-y dark:border-stone-800">
+                    <div className="absolute top-0 left-0 w-full h-full opacity-10 dark:opacity-5 pointer-events-none">
+                        <svg width="100%" height="100%">
+                            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1"/>
+                            </pattern>
+                            <rect width="100%" height="100%" fill="url(#grid)" />
+                        </svg>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            <div>
+                                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white dark:text-stone-100">Real Results, Transparent Growth</h2>
+                                <p className="text-stone-400 dark:text-stone-300 text-lg mb-8 max-w-md">
+                                    We don't just launch brands; we accelerate them. Our data-first approach ensures every decision drives revenue.
+                                </p>
+                                
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-brand-600 flex items-center justify-center shadow-lg shadow-brand-900/30">
+                                            <TrendingUp size={24} />
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-2xl text-white dark:text-stone-100">400%</p>
+                                            <p className="text-stone-400 text-sm">Average Revenue Growth (Year 1)</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-900/30">
+                                            <BarChart3 size={24} />
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-2xl text-white dark:text-stone-100">7x</p>
+                                            <p className="text-stone-400 text-sm">Average ROAS on Ad Spend</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Custom Graph Visualizations */}
+                            <div className="bg-stone-800 p-8 rounded-3xl border border-stone-700 shadow-2xl dark:shadow-dark-2xl">
+                                <h3 className="text-sm font-semibold text-stone-400 uppercase tracking-wider mb-6">Performance Trajectory</h3>
+                                
+                                <div className="space-y-8">
+                                    {/* Graph 1: Revenue */}
+                                    <div>
+                                        <div className="flex justify-between text-sm mb-2">
+                                            <span className="text-stone-300">Month-on-Month Revenue Uplift</span>
+                                            <span className="text-green-400 font-bold">+40%</span>
+                                        </div>
+                                        <div className="h-2 bg-stone-700 rounded-full overflow-hidden">
+                                            <div className="h-full bg-gradient-to-r from-brand-600 to-orange-400 dark:from-brand-600 dark:to-brand-400 w-[85%] rounded-full relative">
+                                                <div className="absolute top-0 right-0 w-full h-full bg-white/20 animate-pulse"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Graph 2: Conversion */}
+                                    <div>
+                                        <div className="flex justify-between text-sm mb-2">
+                                            <span className="text-stone-300">Conversion Rate</span>
+                                            <span className="text-blue-400 font-bold">0.8% &rarr; 3%+</span>
+                                        </div>
+                                        <div className="h-2 bg-stone-700 rounded-full overflow-hidden">
+                                            <div className="h-full bg-blue-500 w-[70%] rounded-full"></div>
+                                        </div>
+                                    </div>
+
+                                    {/* Mini Cards - Updated with Color & Context */}
+                                    <div className="grid grid-cols-2 gap-4 mt-8">
+                                        <div className="bg-gradient-to-br from-green-500/10 to-stone-800 p-5 rounded-2xl border border-green-500/20 hover:border-green-500/40 transition-colors group">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <p className="text-green-400 text-xs font-bold uppercase tracking-wider">Customer LTV</p>
+                                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                            </div>
+                                            <p className="text-2xl md:text-3xl font-bold text-white mb-2">Up 55%</p>
+                                            <p className="text-stone-400 text-xs leading-snug">Driven by automated retention loops & loyalty programs.</p>
+                                        </div>
+                                        
+                                        <div className="bg-gradient-to-br from-blue-500/10 to-stone-800 p-5 rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-colors group">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <p className="text-blue-400 text-xs font-bold uppercase tracking-wider">Ad Cost (CPA)</p>
+                                                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                                            </div>
+                                            <p className="text-2xl md:text-3xl font-bold text-white mb-2">Down 40%</p>
+                                            <p className="text-stone-400 text-xs leading-snug">Achieved through precise audience targeting & creative testing.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const WhyChooseUs = ({ onOpenModal }) => {
+            const reasons = [
+                { 
+                    icon: <IconLayers size={28} />,
+                    title: "Unified Ecosystem", 
+                    desc: "Dev, design, marketing, and logistics in one cohesive growth engine." 
+                },
+                { 
+                    icon: <IconZap size={28} />,
+                    title: "Rapid Go-to-Market", 
+                    desc: "Go from concept to live sales in as little as 14 days." 
+                },
+                { 
+                    icon: <IconCpu size={28} />,
+                    title: "Turnkey Infrastructure", 
+                    desc: "We build scalable operations requiring zero technical effort from you." 
+                },
+                { 
+                    icon: <IconEye size={28} />,
+                    title: "Radical Transparency", 
+                    desc: "Live dashboards tracking every penny of ad spend and revenue." 
+                },
+                {
+                    icon: <IconWallet size={28} />,
+                    title: "Direct Settlement",
+                    desc: "Money flows directly from logistics to you. No middlemen holding funds."
+                },
+                {
+                    icon: <IconRefresh size={28} />,
+                    title: "Smooth Cashflow",
+                    desc: "Direct payouts keep your capital fluid for immediate reinvestment."
+                }
+            ];
+
+            return (
+                <section id="why-us" className="py-24 bg-stone-50 dark:bg-stone-900 relative overflow-hidden transition-colors duration-500">
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+                        style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }}>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 leading-tight">
+                                Why top brands <br/> trust us to build their engines.
+                            </h2>
+                            <p className="text-stone-600 dark:text-stone-300 text-lg mb-8 max-w-2xl mx-auto">
+                                The D2C landscape is crowded. We give you the operational excellence and marketing firepower to stand out.
+                            </p>
+                            <button onClick={onOpenModal} className="text-brand-600 dark:text-brand-500 font-bold flex items-center justify-center gap-2 hover:gap-4 transition-all hover:text-brand-700 dark:hover:text-brand-400 mx-auto">
+                                Book a Strategy Call <ArrowRight size={20} />
+                            </button>
+                        </div>
+                            
+                        {/* Refined Grid Layout */}
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                            {reasons.map((reason, idx) => (
+                                <div key={idx} className="group relative bg-white dark:bg-stone-900 p-6 rounded-3xl border border-stone-100 dark:border-stone-800 hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 hover:shadow-xl dark:hover:shadow-2xl overflow-hidden">
+                                    {/* Hover Gradient Background */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-transparent dark:from-brand-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    
+                                    <div className="relative z-10 flex flex-col items-start h-full">
+                                        <div className="mb-6 p-3 rounded-2xl bg-brand-100 dark:bg-stone-800 text-brand-600 dark:text-brand-500 group-hover:bg-brand-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                                            {reason.icon}
+                                        </div>
+                                        
+                                        <h3 className="text-lg md:text-xl font-bold text-stone-900 dark:text-stone-100 mb-3 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
+                                            {reason.title}
+                                        </h3>
+                                        <p className="text-sm md:text-base text-stone-600 dark:text-stone-400 leading-relaxed">
+                                            {reason.desc}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Pricing = ({ onOpenModal }) => {
+            return (
+                <section id="pricing" className="py-24 bg-white dark:bg-stone-950 transition-colors duration-500 relative overflow-hidden">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none">
+                         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-100 dark:bg-brand-900/10 rounded-full blur-3xl opacity-50 dark:opacity-20"></div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-20">
+                            {/* Removed 'transform -rotate-1' to fix tilt */}
+                            <div className="inline-block bg-brand-500 text-white text-sm font-bold px-4 py-1.5 rounded-full mb-6 shadow-lg shadow-brand-500/30">
+                                PARTNERSHIP MODEL
+                            </div>
+                            <h2 className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-100 mb-6 leading-tight">
+                                Your ROI is our priority, <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400 dark:from-brand-500 dark:to-brand-300">Billing Happens Only on Success.</span>
+                            </h2>
+                            <p className="text-stone-600 dark:text-stone-300 text-xl max-w-2xl mx-auto">
+                                We invest in your growth. Our revenue is tied directly to your success, so we only win when you win.
+                            </p>
+                        </div>
+
+                        {/* Mobile Optimized Grid: 2 cols on mobile with adjusted spacing/sizing */}
+                        <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto">
+                            {/* Card 1: Subscription Fee - NOW HIGHLIGHTED (Orange) */}
+                            <div className="bg-brand-600 dark:bg-brand-700 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-brand-500 dark:border-brand-600 relative overflow-hidden text-white shadow-xl shadow-brand-900/20 group hover:border-brand-400 transition-all duration-300 h-full">
+                                <div className="absolute -top-10 -right-10 w-32 h-32 md:w-48 md:h-48 bg-white/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500"></div>
+                                <div className="relative z-10">
+                                    <div className="text-4xl md:text-6xl font-bold mb-2">₹0</div>
+                                    <h3 className="text-lg md:text-2xl font-bold text-white mb-2 leading-tight">Subscription Fee</h3>
+                                    <p className="text-xs md:text-base text-brand-100">No monthly retainers. No hidden fixed costs.</p>
+                                </div>
+                            </div>
+
+                            {/* Card 2: Setup Cost - NOW NEUTRAL (Stone) */}
+                            <div className="bg-stone-50 dark:bg-stone-900 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 relative overflow-hidden group hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 h-full">
+                                <div className="absolute top-0 right-0 w-20 h-20 md:w-32 md:h-32 bg-stone-200 dark:bg-stone-800 rounded-bl-full opacity-50 group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors"></div>
+                                <div className="relative z-10">
+                                    <div className="mb-2">
+                                        <span className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-100">₹8999</span>
+                                        <span className="text-2xl md:text-4xl font-bold text-stone-500 dark:text-stone-400 align-top">*</span>
+                                    </div>
+                                    <h3 className="text-lg md:text-2xl font-bold text-stone-800 dark:text-stone-200 mb-2 leading-tight">Website Setup & Engg.</h3>
+                                    <p className="text-xs md:text-base text-stone-500 dark:text-stone-400">One-time cost for a high-performance store setup.</p>
+                                </div>
+                            </div>
+
+                            {/* Card 3: Marketing Commission - Orange */}
+                            <div className="bg-brand-600 dark:bg-brand-700 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-brand-500 dark:border-brand-600 relative overflow-hidden text-white shadow-xl shadow-brand-900/20 group h-full">
+                                <div className="absolute -top-10 -left-10 w-32 h-32 md:w-48 md:h-48 bg-white/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500"></div>
+                                <div className="relative z-10">
+                                    <div className="text-4xl md:text-6xl font-bold mb-2">0%</div>
+                                    <h3 className="text-lg md:text-2xl font-bold text-white mb-2 leading-tight">Commission on Ads</h3>
+                                    <p className="text-xs md:text-base text-brand-100">We don't tax your marketing budget. Every rupee goes to ads.</p>
+                                </div>
+                            </div>
+
+                            {/* Card 4: Success Fee - Neutral */}
+                            <div className="bg-stone-50 dark:bg-stone-900 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 relative overflow-hidden group hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 h-full">
+                                <div className="absolute bottom-0 left-0 w-20 h-20 md:w-32 md:h-32 bg-stone-200 dark:bg-stone-800 rounded-tr-full opacity-50 group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors"></div>
+                                <div className="relative z-10">
+                                    <div className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-100 mb-2">3%</div>
+                                    <h3 className="text-lg md:text-2xl font-bold text-stone-800 dark:text-stone-200 mb-2 leading-tight">+ GST</h3>
+                                    <p className="text-xs md:text-base text-stone-500 dark:text-stone-400">On delivered orders only. We earn when you actually sell.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-12 md:mt-20 text-center">
+                             <button onClick={onOpenModal} className="px-8 md:px-12 py-4 md:py-5 bg-stone-900 dark:bg-white text-white dark:text-stone-900 rounded-full font-bold text-base md:text-lg shadow-xl shadow-stone-900/20 dark:shadow-white/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 inline-flex items-center gap-2 group">
+                                Start Your <span className="text-brand-500 mx-1 mr-2">D2C</span> Journey <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+                            <p className="mt-4 text-xs md:text-sm text-stone-500 dark:text-stone-400">Limited slots available for this quarter.</p>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Testimonials = () => {
+            const testimonials = [
+                {
+                    quote: "We went from 0 to 1cr+ monthly revenue in just 3 months. The team handled everything perfectly.",
+                    author: "Surendra.",
+                    role: "Founder, Jevora",
+                    initial: "S"
+                },
+                {
+                    quote: "The only agency that actually understands the full D2C ecosystem. Our Business is now seamless.",
+                    author: "Kshitij.",
+                    role: "Owner, YatraBandhu",
+                    initial: "K"
+                },
+                {
+                    quote: "Their ad strategy is unmatched. We saw our ROAS and revenue double within the first 6 weeks of engagement.",
+                    author: "Hemani.",
+                    role: "Co-Founder, PureHome",
+                    initial: "H"
+                }
+            ];
+
+            return (
+                <section className="py-24 bg-stone-900 text-white border-t border-stone-800">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {testimonials.map((t, idx) => (
+                                <div key={idx} className="bg-stone-800 p-8 rounded-3xl relative border border-transparent dark:border-stone-700 shadow-dark-md hover:bg-stone-750 transition-colors flex flex-col h-full">
+                                    <div className="text-brand-500 dark:text-brand-600 text-6xl font-serif absolute top-4 left-6 opacity-30 dark:opacity-20">"</div>
+                                    <p className="relative z-10 text-stone-300 mb-8 text-lg leading-relaxed pt-4 flex-grow">
+                                        {t.quote}
+                                    </p>
+                                    <div className="flex items-center gap-4 mt-auto">
+                                        <div className="w-12 h-12 rounded-full bg-stone-700 flex items-center justify-center font-bold text-xl text-stone-300 border border-stone-600 shrink-0">
+                                            {t.initial}
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-white dark:text-stone-100">{t.author}</p>
+                                            <p className="text-sm text-stone-500 dark:text-stone-400">{t.role}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const HowItWorks = () => {
+            const steps = [
+                { 
+                    id: "Week 1",
+                    title: "Foundation & Launch",
+                    text: "A fully functional, launch-ready D2C store with complete tracking, ad infrastructure, and operations set up."
+                },
+                { 
+                    id: "Week 2",
+                    title: "Traffic & Data",
+                    text: "Controlled traffic launched with initial data on audiences, creatives, and early PMF indicators."
+                },
+                { 
+                    id: "Week 3",
+                    title: "Optimization",
+                    text: "A refined, high-conversion funnel with optimized offers, landing pages, creatives, and hero SKUs."
+                },
+                { 
+                    id: "Week 4",
+                    title: "Scaling Engine",
+                    text: "A scalable growth engine with structured ad scaling, expanded audiences, and a stable performance funnel."
+                }
+            ];
+
+            return (
+                <section id="how-it-works" className="py-24 bg-stone-50 dark:bg-stone-900 border-y border-stone-200 dark:border-stone-800 transition-colors duration-500 relative overflow-hidden">
+                    {/* Background Texture */}
+                    <div className="absolute inset-0 opacity-30 dark:opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ea580c 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-20">
+                            <h2 className="text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6">
+                                Your Roadmap to <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400">D2C Success</span>
+                            </h2>
+                            <p className="text-stone-600 dark:text-stone-300 text-lg max-w-2xl mx-auto">
+                                From setup to scale, we've mapped out the exact path to your success.
+                            </p>
+                        </div>
+                        
+                        <div className="relative">
+                            {/* Connecting Line (Desktop) */}
+                            <div className="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-stone-200 dark:bg-stone-800 -translate-y-1/2 rounded-full">
+                                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-brand-500/20 via-brand-500/50 to-brand-500/20"></div>
+                            </div>
+                            
+                            {/* Mobile Optimized Grid: 2 cols on mobile, 4 on desktop */}
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-6">
+                                {steps.map((step, idx) => (
+                                    <div 
+                                        key={idx} 
+                                        className={`relative group bg-white dark:bg-stone-950 p-5 md:p-8 rounded-3xl border border-stone-100 dark:border-stone-800 shadow-xl dark:shadow-dark-lg hover:shadow-2xl hover:border-brand-200 dark:hover:border-brand-800 transition-all duration-300 transform ${idx % 2 !== 0 ? 'lg:translate-y-12' : 'lg:-translate-y-4'}`}
+                                    >
+                                        {/* Connector Circle (Desktop) */}
+                                        <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-brand-500 rounded-full border-4 border-white dark:border-stone-950 z-20 ${idx % 2 !== 0 ? '-top-14' : '-bottom-10'}`}></div>
+                                        
+                                        {/* Connector Line Vertical (Desktop) */}
+                                        <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 w-0.5 h-10 bg-brand-200 dark:bg-brand-900 ${idx % 2 !== 0 ? '-top-10' : '-bottom-10'}`}></div>
+
+                                        {/* Step Label */}
+                                        <div className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-brand-100 dark:bg-brand-900/30 text-stone-900 dark:text-stone-100 rounded-xl text-xs md:text-sm font-bold mb-4 shadow-sm border border-brand-200 dark:border-brand-800/50">
+                                            {step.id}
+                                        </div>
+                                        
+                                        {/* Title in Orange */}
+                                        <h3 className="text-lg md:text-xl font-bold text-brand-600 dark:text-brand-500 mb-2 md:mb-4">{step.title}</h3>
+                                        
+                                        <p className="text-stone-600 dark:text-stone-400 text-xs md:text-sm leading-relaxed">
+                                            {step.text}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Footer = ({ onOpenModal }) => {
+            return (
+                <footer id="contact" className="bg-white dark:bg-stone-950 pt-20 pb-10 transition-colors duration-500">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="bg-brand-50 dark:bg-stone-900 rounded-[3rem] p-12 md:p-20 text-center mb-20 relative overflow-hidden border border-transparent dark:border-stone-800 shadow-none dark:shadow-dark-xl">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-200 dark:bg-brand-900/20 rounded-full blur-3xl opacity-50 dark:opacity-100 -translate-y-1/2 translate-x-1/2"></div>
+                            
+                            <h2 className="text-3xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-6 relative z-10">
+                                Ready to build your <br/> <span className="text-brand-600">D2C Brand?</span>
+                            </h2>
+                            <p className="text-xl text-stone-600 dark:text-stone-300 mb-10 max-w-2xl mx-auto relative z-10">
+                                Join the ecosystem of successful sellers. Let's turn your product into a powerhouse.
+                            </p>
+                            <button onClick={onOpenModal} className="px-10 py-5 bg-brand-600 hover:bg-brand-700 text-white rounded-full font-bold text-lg shadow-xl shadow-brand-600/30 dark:shadow-brand-900/30 transition-all relative z-10">
+                                Book a Free Strategy Call
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 border-t border-stone-100 dark:border-stone-800 pt-12">
+                            <div className="col-span-2 md:col-span-1">
+                                {/* Updated Footer Logo: Restored working URL */}
+                                <div className="flex flex-col items-start gap-1 mb-4">
+                                    <img 
+                                        src="https://lh3.googleusercontent.com/d/1EoD8aYlMP9BkFdXV3-voijf-SAv01sps" 
+                                        alt="MetaSaurus Logo" 
+                                        className="h-10 md:h-12 w-auto object-contain"
+                                    />
+                                    <span className="text-xl font-bold tracking-tight leading-none">
+                                        <span className="text-stone-900 dark:text-stone-100">Meta</span>
+                                        <span style={{ color: '#FF8544' }}>Saurus</span>
+                                    </span>
+                                </div>
+                                <p className="text-stone-500 dark:text-stone-400 text-sm mb-6">
+                                    The complete operating system for modern D2C brands.
+                                </p>
+                                <div className="flex gap-4 items-center">
+                                    <a href="https://www.linkedin.com/company/metasaurus" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" alt="LinkedIn" className="h-6 w-6" />
+                                    </a>
+                                    <a href="https://www.instagram.com/metasaurus.in" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" className="h-6 w-6" />
+                                    </a>
+                                    <a href="https://www.facebook.com/metasaurus.in" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" className="h-6 w-6" />
+                                    </a>
+                                    <a href="https://www.youtube.com/@Meta.Saurus" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" className="h-5 w-auto" />
+                                    </a>
+                                </div>
+                                
+                                {/* Added Trustpilot Badge */}
+                                <TrustpilotBadge />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-stone-900 dark:text-stone-100 mb-4">Company</h4>
+                                <ul className="space-y-2 text-sm text-stone-500 dark:text-stone-400">
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">About</a></li>
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Careers</a></li>
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Blog</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-stone-900 dark:text-stone-100 mb-4">Services</h4>
+                                <ul className="space-y-2 text-sm text-stone-500 dark:text-stone-400">
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Store Setup</a></li>
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Marketing</a></li>
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Logistics</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-stone-900 dark:text-stone-100 mb-4">Legal</h4>
+                                <ul className="space-y-2 text-sm text-stone-500 dark:text-stone-400">
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Privacy</a></li>
+                                    <li><a href="#" className="hover:text-brand-600 dark:hover:text-brand-500">Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div className="text-center text-stone-400 dark:text-stone-500 text-sm">
+                            &copy; 2025 MetaSaurus. All rights reserved.
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        const App = () => {
+            // Default to light mode as requested
+            const [isDark, setIsDark] = useState(false);
+            const [isModalOpen, setIsModalOpen] = useState(false);
+
+            const toggleTheme = () => {
+                setIsDark(!isDark);
+            };
+
+            const openModal = () => setIsModalOpen(true);
+            const closeModal = () => setIsModalOpen(false);
+
+            return (
+                <div className={isDark ? 'dark' : ''}>
+                    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-500">
+                        <Nav isDark={isDark} toggleTheme={toggleTheme} onOpenModal={openModal} />
+                        <Hero onOpenModal={openModal} />
+                        <Services />
+                        <Impact />
+                        <Stats />
+                        <WhyChooseUs onOpenModal={openModal} />
+                        <Pricing onOpenModal={openModal} />
+                        <Testimonials />
+                        <HowItWorks />
+                        <Footer onOpenModal={openModal} />
+                        
+                        <BookingModal isOpen={isModalOpen} onClose={closeModal} />
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
