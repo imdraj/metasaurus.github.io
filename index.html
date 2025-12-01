@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Launch & Scale Your D2C Brand</title>
+    <title>MetaSaurus - Everything You Need to Scale</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1EoD8aYlMP9BkFdXV3-voijf-SAv01sps">
+
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -388,8 +391,8 @@
                 <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 dark:bg-stone-900/90 backdrop-blur-md shadow-sm dark:shadow-dark-sm py-4' : 'bg-transparent py-6'}`}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                         
-                        {/* Updated Logo: Restored working URL */}
-                        <div className="flex flex-col items-center justify-center gap-1">
+                        {/* Updated Logo: Restored working URL - Now Clickable Home Link */}
+                        <a href="#" className="flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity cursor-pointer">
                             <img 
                                 src="https://lh3.googleusercontent.com/d/1EoD8aYlMP9BkFdXV3-voijf-SAv01sps" 
                                 alt="MetaSaurus Logo" 
@@ -399,7 +402,7 @@
                                 <span className="text-stone-900 dark:text-stone-100">Meta</span>
                                 <span style={{ color: '#FF8544' }}>Saurus</span>
                             </span>
-                        </div>
+                        </a>
 
                         {/* Desktop Nav */}
                         <div className="hidden md:flex items-center gap-8">
